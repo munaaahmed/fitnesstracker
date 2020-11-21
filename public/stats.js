@@ -5,6 +5,7 @@ fetch("/api/workouts/range")
     return response.json();
   })
   .then(data => {
+    console.log(data, "data")
     populateChart(data);
   });
 
@@ -30,9 +31,9 @@ API.getWorkoutsInRange()
     "#ff7c43",
     "ffa600"
   ]
-
   return arr;
   }
+
 function populateChart(data) {
   let durations = duration(data);
   let pounds = calculateTotalWeight(data);
@@ -188,10 +189,10 @@ function populateChart(data) {
 
 function duration(data) {
   let durations = [];
-
+  console.log(data, "HERE")
   data.forEach(workout => {
     workout.exercises.forEach(exercise => {
-      durations.push(exercise.duration);
+      durations.push(exercise);
     });
   });
 
@@ -203,7 +204,7 @@ function calculateTotalWeight(data) {
 
   data.forEach(workout => {
     workout.exercises.forEach(exercise => {
-      total.push(exercise.weight);
+      total.push(exercise);
     });
   });
 
@@ -215,7 +216,7 @@ function workoutNames(data) {
 
   data.forEach(workout => {
     workout.exercises.forEach(exercise => {
-      workouts.push(exercise.name);
+      workouts.push(exercise);
     });
   });
   
