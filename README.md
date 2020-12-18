@@ -1,6 +1,6 @@
 # fitness tracker
 ## Deployed Application Link
-https://munaaahmed.github.io/homework19/
+https://fitnesstracker62.herokuapp.com/
 
 ## Table of Contents 
 
