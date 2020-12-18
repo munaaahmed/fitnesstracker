@@ -1,55 +1,26 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-const view = require("./routes/view")
-const api = require("./routes/api")
-const PORT = process.env.PORT || 3000;
 
-const Workout = require("./models");
+const PORT = 3000;
+
 const app = express();
 
 app.use(logger("dev"));
-app.use(view)
-app.use(api)
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workout", { useNewUrlParser: true });
-
-app.post("/submit", ({ body }, res) => {
-Workout.create(body)
-    .then(dbUser => {
-      res.json(dbUser);
-    })
-    .catch(err => {
-      res.json(err);
-    });
+mongoose.connect("mongodb://localhost/workout", {
+  useNewUrlParser: true,
+  useFindAndModify: false
 });
 
-app.route('/api/workouts')
-  .get(function (req, res) {
-    Workout.find(body)
-    .then(dbUser => {
-      res.json(dbUser);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-  })
-  .post(function (req, res) {
-    Workout.create(body)
-    .then(dbUser => {
-      res.json(dbUser);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-  })
-  .put(function (req, res) {
-    res.send('Update the book')
-  })
+// routes
+app.use(require("./routes/api.js"));
+app.use(require("./routes/view.js"));
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
