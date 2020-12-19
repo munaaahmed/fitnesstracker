@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/workout", {
+mongoose.connect("mongodb+srv://muna:hello@cluster0.zodlu.mongodb.net/muna?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
