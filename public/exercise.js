@@ -36,8 +36,6 @@ function handleWorkoutTypeChange(event) {
   workoutType = event.target.value;
 
   if (workoutType === "cardio") {
-
-    console.log("cardio")
     cardioForm.classList.remove("d-none");
     resistanceForm.classList.add("d-none");
   } else if (workoutType === "resistance") {
@@ -59,7 +57,6 @@ function validateInputs() {
       isValid = false;
     }
 
-      console.log(weightInput.value.trim())
     if (weightInput.value.trim() === "") {
       isValid = false;
     }
@@ -111,25 +108,14 @@ async function handleFormSubmit(event) {
   } else if (workoutType === "resistance") {
     workoutData.type = "resistance";
     workoutData.name = nameInput.value.trim();
-    workoutData.exercises=[]
-    let reps = Number(repsInput.value.trim());
-    let dur = Number(resistanceDurationInput.value.trim());
-    let sett= Number(setsInput.value.trim());
-    let weighht = Number(weightInput.value.trim());
-    workoutData.exercises.push({ 
-      "reps": reps,
-      "duration": dur,
-      "sets": sett,
-      "weight": weighht
-    });
-    // workoutData.sets = Number(setsInput.value.trim());
-    // workoutData.reps = Number(repsInput.value.trim());
-    // workoutData.duration = Number(resistanceDurationInput.value.trim());
+    workoutData.weight = Number(weightInput.value.trim());
+    workoutData.sets = Number(setsInput.value.trim());
+    workoutData.reps = Number(repsInput.value.trim());
+    workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
-  console.log(workoutData, 'data')
 
   await API.addExercise(workoutData);
-  // clearInputs();
+  clearInputs();
   toast.classList.add("success");
 }
 
